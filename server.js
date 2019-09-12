@@ -7,20 +7,20 @@ var fs = require("fs");
 var bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
-app.get("/", function(req, res) {
+app.get("/", function (req, res) {
 	res.sendFile(path.join(__dirname + "/index.html"));
 });
 
 var directory;
-fs.readFile("./directory.json", "utf8", function(err, data) {
+fs.readFile("./directory.json", "utf8", function (err, data) {
 	directory = JSON.parse(data);
 	if (err) {
 		throw err;
 	}
 });
 
-app.get("/search", function(req, res) {
-	var results = directory.reduce(function(acc, file) {
+app.get("/search", function (req, res) {
+	var results = directory.reduce(function (acc, file) {
 		if (file.tags.indexOf(req.query.q) !== -1) {
 			acc.push({
 				id: file.id,
